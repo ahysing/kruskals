@@ -100,3 +100,40 @@ func Test_Kruskals(t *testing.T) {
 		t.Errorf("Expected graph size to be number of vertecies N - 1: 3. Actually got %v", len(result))
 	}
 }
+
+func Test_Kruskals_InputHasCycle(t *testing.T) {
+	var g = New()
+	var vertecies = []string{"a", "b", "c"}
+	for _, vertex := range vertecies {
+		g.AddVertex(vertex)
+	}
+
+	g.AddEdge("a", "b", 1)
+	g.AddEdge("b", "c", 1)
+	g.AddEdge("c", "b", 1)
+
+	result := Kruskals(&g)
+
+	if len(result) != 2 {
+		t.Errorf("Expected graph size to be number of vertecies N - 1: 2. Actually got %v", len(result))
+	}
+}
+
+func Test_Kruskals_InputHasCycle2(t *testing.T) {
+	var g = New()
+	var vertecies = []string{"a", "b", "c", "d"}
+	for _, vertex := range vertecies {
+		g.AddVertex(vertex)
+	}
+
+	g.AddEdge("a", "b", 1)
+	g.AddEdge("c", "d", 1)
+	g.AddEdge("b", "c", 1)
+	g.AddEdge("c", "b", 1)
+
+	result := Kruskals(&g)
+
+	if len(result) != 3 {
+		t.Errorf("Expected graph size to be number of vertecies N - 1: 3. Actually got %v", len(result))
+	}
+}
